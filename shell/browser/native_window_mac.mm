@@ -1511,6 +1511,11 @@ void NativeWindowMac::SetVibrancy(const std::string& type) {
 
 void NativeWindowMac::SetWindowButtonVisibility(bool visible) {
   window_button_visibility_ = visible;
+  if (buttons_proxy_ && visible) {
+    [buttons_proxy_ redraw];
+    [buttons_proxy_ setVisible:YES];
+  }
+
   // The visibility of window buttons are managed by |buttons_proxy_| if the
   // style is customButtonsOnHover.
   if (title_bar_style_ == TitleBarStyle::kCustomButtonsOnHover)
